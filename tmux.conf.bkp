@@ -20,7 +20,7 @@ setw -g pane-base-index 1
 set -g mouse on
 
 # Status Bar Configuration
-#set -g status-right '#{prefix_highlight} #{cpu_bg_color} CPU: #{cpu_icon} #{cpu_percentage} | %a %h-%d %H:%M '
+set -g status-right '#{prefix_highlight} #{cpu_bg_color} CPU: #{cpu_icon} #{cpu_percentage} | %a %h-%d %H:%M '
 
 ### Clipboard integration
 ## ctrl+c to send to clipboard
@@ -53,8 +53,7 @@ set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @plugin 'tmux-plugins/tmux-cpu'              # https://github.com/tmux-plugins/tmux-cpu
 set -g @plugin 'tmux-plugins/tmux-sidebar'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight' # https://github.com/tmux-plugins/tmux-prefix-highlight
-#set -g @plugin 'tmux-plugins/tmux-urlview'
-set -g @plugin 'jimeh/tmux-themepack'
+set -g @plugin 'tmux-plugins/tmux-urlview'
 # set -g @plugin 'github_username/plugin_name'
 # set -g @plugin 'git@github.com/user/plugin'
 # set -g @plugin 'git@bitbucket.com/user/plugin'
@@ -67,5 +66,3 @@ run -b '~/.tmux/plugins/tpm/tpm'
 #set -g @continuum-restore 'on'
 ## Vim Session
 set -g @resurrect-strategy-nvim 'session'
-## TMUX themepack
-set -g @themepack 'powerline/double/cyan'
