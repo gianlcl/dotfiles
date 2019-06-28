@@ -89,6 +89,7 @@ do
                     echo "old Neovim's init.vim backed up to *.old extension"
                 fi
                 if [ ! -d ~/.config/nvim ]
+                then
                     mkdir ~/.config/nvim
                     echo "created configurations directory on ~/.config/nvim"
                 fi
@@ -104,7 +105,7 @@ do
                 ;;
             4)
                 echo "Installing Tmux configs"
-                if [ -f ~/.tmux.conf]
+                if [ -f ~/.tmux.conf ]
                 then
                     mv ~/.tmux.conf ~/.tmux.conf.old
                     echo "old tmux.conf backed up with *.old extension"
@@ -114,8 +115,7 @@ do
                 then
                     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
                 fi
-                tmux run-shell /home/gianlucas/.tmux/plugins/tpm/bindings/install_plugins
-                echo "plugins installed!"
+                echo "to install Tmux plugins run Prefix + I (default Prefix is c-x)"
                 ;;    
         esac
     fi
