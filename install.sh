@@ -9,7 +9,7 @@ choice () {
     then
         opts[choice]=
     else
-        opts[choice]=✔
+        opts[choice]=+
     fi
 }
 
