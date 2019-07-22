@@ -18,7 +18,7 @@ while :
 do
     clear
     echo -e $header
-    options=("Bash ${opts[1]}" "Vim \(not availabre yet\) ${opts[2]}" "Neovim ${opts[3]}" "Tmux ${opts[4]}" "Done")
+    options=("Bash ${opts[1]}" "Vim \(not available yet\) ${opts[2]}" "Neovim ${opts[3]}" "Tmux ${opts[4]}" "Done")
     select opt in "${options[@]}"
     do
         case $opt in
