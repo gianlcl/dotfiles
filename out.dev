@@ -3,7 +3,7 @@
 ### There is some commented bind that I don't use but I keep it because could be useful someday maybe.
 
 ### Global Vars Definition
-DOT_SHELL="oi"
+DOT_SHELL="/bin/rbash"
 DOT_TMUX_PREFIX="C-x"
 
 
