@@ -3,7 +3,7 @@
 
 - - -
 
-| ![foto de Gian](https://raw.githubusercontent.com/Giansama/git-tutorial/master/códigos-fontes/readme/foto.jpg) | About me						 |
+|  | About me						 |
 |---		|---											|
 | Name: 	| Gian Lucas Cavalcante de Lima					|
 | Born: 	| 02 Jan 95 							|
