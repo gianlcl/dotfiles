@@ -1,0 +1,196 @@
+""" Overall Configuration ----------
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+set number
+set mouse=a
+set scrolloff=5
+set termguicolors
+
+set inccommand=split
+set clipboard=unnamed " Share one clipboard for everything
+set completeopt=longest,menuone,noselect
+
+set background=dark
+set t_Co=256
+
+set autoread " Automatically update file if changed outside of Vim 
+set autowrite " Automaically save file when swap between opened files
+
+""" Key Bindings -------------------
+"" My keybindings
+let mapleader="\<space>"
+nnoremap <leader>q  :q<cr>
+nnoremap <leader>w  :w<cr>
+
+nnoremap <c-h> :noh<cr>
+nnoremap <cr><cr> m`o<esc>``
+nnoremap ;;  m`A;<esc>``
+
+"" reMapping things
+map n nzz
+map N Nzz
+
+"" Plugins Bindings
+map <leader>vp :VimuxPromptCommand<cr>
+map <leader>vl :VimuxRunLastCommand<cr>
+
+nnoremap <c-p> :Files<cr>
+nnoremap <c-f> :Ag<space>
+
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+""" Auto Commands ------------------
+augroup CursorLine
+    au!
+    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    au VimEnter,WinEnter,BufWinEnter * hi cursorline gui=bold guifg=none guibg=#404747
+    au WinLeave * setlocal nocursorline
+augroup END
+
+""" Plugin Management -----------
+call plug#begin()
+
+"" Plugins Installation ------------
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'deoplete-plugins/deoplete-zsh'
+"Plug 'deoplete-plugins/deoplete-jedi'
+"Plug 'deoplete-plugins/deoplete-docker'
+"Plug 'tweekmonster/deoplete-clang2'
+"Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+"Plug 'deathlyfrantic/deoplete-spell'
+Plug 'Shougo/neosnippet.vim'
+Plug 'shougo/neosnippet-snippets'
+" Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+Plug 'scrooloose/nerdtree' 
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'xuyuanp/nerdtree-git-plugin'
+Plug 'tyok/nerdtree-ack'
+Plug 'ivalkeen/nerdtree-execute'
+" Plug 'jistr/vim-nerdtree-tabs'
+Plug 'pseewald/nerdtree-tagbar-combined'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'jiangmiao/auto-pairs'
+Plug 'godlygeek/tabular'
+Plug 'Yggdroot/indentLine'
+Plug 'severin-lemaignan/vim-minimap'
+Plug 'wellle/tmux-complete.vim'
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+Plug 'w0rp/ale'
+Plug 'tpope/vim-surround'
+Plug 'roxma/vim-paste-easy'
+Plug 'benmills/vimux'
+Plug 'tmux-plugins/vim-tmux'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'ryanoasis/vim-devicons'
+Plug 'majutsushi/tagbar'
+Plug 'mileszs/ack.vim'
+Plug 'othree/eregex.vim'
+Plug 'ervandew/supertab'
+Plug 'kana/vim-arpeggio'
+Plug 'lambdalisue/vim-manpager'
+
+"" Themes ----------
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+Plug 'felixhummel/setcolors.vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'bling/vim-airline'
+Plug 'jacoborus/tender.vim'
+Plug 'sonph/onehalf', { 'rtp': '/vim' }
+Plug 'flrnprz/candid.vim'
+Plug 'lifepillar/vim-solarized8'
+Plug 'connorholyday/vim-snazzy'
+Plug 'kaicataldo/material.vim'
+
+call plug#end()
+
+"" Theme Configuration ------------
+colorscheme candid
+let g:airline_theme='onehalfdark'
+
+""" Plugins Configuration ----------
+
+"" Ativa as fontes Powerline
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+
+"" indentLine
+let g:indentLine_char = '▏'
+
+"" ALE
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚠'
+
+"" Vim Tmux Navigation
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <C-Left> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-Down> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-Up> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-Right> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+
+"" Ack.vim
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+"" NerdTREE Configurations
+" Mappings
+map <leader>' :NERDTreeToggle<CR>
+" NERDTree Git
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+
+"" Deoplete Configuration
+" Use deoplete.
+"let g:deoplete#enable_at_startup = 1
+
+"" NeoSnippet
+let g:neosnippet#enable_completed_snippet = 1
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <leader>Tab>     <Plug>(neosnippet_expand_or_jump)
+smap <leader>Tab>     <Plug>(neosnippet_expand_or_jump)
+xmap <leader>Tab>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+"" SuperTAB
+let g:SuperTabDefaultCompletionType = "<c-n>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+"" Arpeggio KeyMappings
+call arpeggio#map('n','',0,'sv',':vsplit<CR>')
+call arpeggio#map('n','',0,'sh',':split<CR>')
+call arpeggio#map('i','',0,'jo','<C-o>o')
+call arpeggio#map('i','',0,'ko','<C-o>O')
+
+filetype plugin on
+filetype indent on
