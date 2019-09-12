@@ -29,7 +29,7 @@ font pango:mononoki 12
 floating_modifier $mod
 
 # default terminal
-set $terminal st
+set $terminal kitty
 
 # start a terminal
 bindsym $mod+Return exec $terminal
@@ -48,7 +48,7 @@ set $dmenu "i3-dmenu-desktop"
 # installed.
 bindsym $mod+d exec --no-startup-id $rofi
 bindsym $mod+p exec --no-startup-id $dmenu
-bindsym $mod+F12 exec "/home/daniel/scripts/bookmarks.sh"
+#bindsym $mod+F12 exec "/home/daniel/scripts/bookmarks.sh"
 
 #alt+tab-like functionality
 bindsym $mod+Tab focus right
