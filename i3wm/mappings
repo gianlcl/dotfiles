@@ -1,0 +1,22 @@
+1. Primary: $mod + Key
+    ++ [0-9]    -> walk through workspaces
+    ++ [arrows] -> walk through panes
+    ++ 
+
+
+2. Secondary: $mod + Shift + Key
+    ++ [0-9]    -> send current pane to another workspace
+    ++ 
+
+3. Alternative: $mod + Alt + Key
+    ++ [0-9]    -> move current pane to another ws and go
+    ++ 
+
+4. Control: $mod + Ctrl + Key
+    ++ q        -> Change to Split
+    ++ w        -> Change to Tabbed
+    ++ e        -> Change to Stacked
+    ++ h        -> Split horizontally |--|
+    ++ v        -> Split vertically | | |
+    ++ b        -> Change borders (M)
+    ++ x        -> Power Menu
