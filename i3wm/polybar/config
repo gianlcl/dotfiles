@@ -64,7 +64,7 @@ font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=8;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=8;1"
 
 modules-left = i3 
-modules-center = 
+modules-center = cmus 
 modules-right = pulseaudio xbacklight xkeyboard memory cpu wlan eth battery temperature calendar powermenu
 
 tray-position = center
@@ -453,6 +453,22 @@ click-left = ~/.config/polybar/scripts/popup-calendar.sh --popup
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #0a6cf5
+
+[module/redshift]
+type = custom/script
+exec = ~/.config/polybar/scripts/info-redshift-temp.sh
+interval = 5
+format-prefix = 
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #D67900
+
+[module/player-cmus]
+type = custom/script
+exec = ~/.config/polybar/scripts/player-cmus.sh
+interval = 5
+click-left = cmus-remote -n
+click-right = cmus-remote -r
+click-middle = cmus-remote -u
 
 [settings]
 screenchange-reload = true
