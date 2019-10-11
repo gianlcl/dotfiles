@@ -1,184 +1,53 @@
-#  ____ _____ 
-# |  _ \_   _|  Derek Taylor (DistroTube)
-# | | | || |    http://www.youtube.com/c/DistroTube
-# | |_| || |    http://www.gitlab.com/dwt1/ 
-# |____/ |_|  	
-#      
-# A customized config for i3-gaps window manager (http://www.i3wm.org) 
-# Based off of the config for Manjaro's i3 Community Distro.    
-# Modified by Derek Taylor (http://www.gitlab.com/dwt1/ )
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
-
-# Set mod key (Mod1=<Alt>, Mod4=<Super>)
+# Setting Mod Key ( Mod1=<Alt>, Mod4=<Super> )
 set $mod Mod4
 
-# set default desktop layout (default is tiling)
-# workspace_layout tabbed <stacking|tabbed
-
-# Configure border style <normal|1pixel|pixel xx|none|pixel>
-new_window pixel 1
-new_float normal
-
-# Hide borders
-hide_edge_borders none
-
-# change borders
-bindsym $mod+u border none
-bindsym $mod+y border pixel 1
-bindsym $mod+n border normal
-
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font xft:Fira Code 11
-
-# USE MOUSE + MODKEY TO DRAG FLOATING WINDOWS
-floating_modifier $mod
-
-# OPENING A TERMINAL
+### Configurations ==============================
+# Vars ----------------------
 set $myTerm kitty
-bindsym $mod+Return exec $myTerm
-
-# KILL FOCUSED WINDOW
-bindsym $mod+Shift+q kill
-
-# MY PROGRAM LAUNCHER (DMENU)
-set $rofi "rofi -show combi -combi-modi run,drun"
-
-bindsym $mod+d exec --no-startup-id $rofi
-
-# MY DMENU SCRIPTS
-#bindsym $mod+Shift+e exec ./.dmenu/dmenu-edit-configs.sh
-#bindsym $mod+Shift+m exec ./.dmenu/dmenu-sysmon.sh
-#bindsym $mod+Shift+p exec passmenu
-#bindsym $mod+Shift+r exec ./.dmenu/dmenu-reddio.sh
-#bindsym $mod+Shift+s exec ./.dmenu/dmenu-surfraw.sh
-#bindsym $mod+Shift+t exec ./.dmenu/dmenu-trading.sh
-
-# MY APPLICATIONS
-#bindsym $mod+Mod1+a exec $myTerm -e ncpamixer
-#bindsym $mod+Mod1+b exec surf www.youtube.com/c/DistroTube
-bindsym $mod+m exec $myTerm -e cmus
-#bindsym $mod+Mod1+e exec $myTerm -e neomutt
-bindsym $mod+f exec $myTerm -e sh ~/.config/vifm/scripts/vifmrun
-#bindsym $mod+Mod1+i exec $myTerm -e irssi
-#bindsym $mod+Mod1+j exec $myTerm -e joplin
-#bindsym $mod+Mod1+l exec $myTerm -e lynx --cfg=~/.lynx/lynx.cfg --lss=~/.lynx/lynx.lss -vikeys gopher://distro.tube
-#bindsym $mod+Mod1+m exec $myTerm -e sh ./scripts/toot.sh
-#bindsym $mod+Mod1+n exec $myTerm -e newsboat
-#bindsym $mod+Mod1+p exec $myTerm -e pianobar
-#bindsym $mod+Mod1+r exec $myTerm -e rtv
-#bindsym $mod+Mod1+w exec $myTerm -e wopr report.xml
-#bindsym $mod+Mod1+y exec $myTerm -e youtube-viewer
-
-################################################################################################
-## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
-################################################################################################
-## Multimedia Keys
-
-# volume
-bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks
-bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
-
-# granular volume control
-bindsym $mod+XF86AudioRaiseVolume exec amixer -D pulse sset Master 1%+ && pkill -RTMIN+1 i3blocks
-bindsym $mod+XF86AudioLowerVolume exec amixer -D pulse sset Master 1%- && pkill -RTMIN+1 i3blocks
-
-# mute
-bindsym XF86AudioMute exec amixer sset Master toggle && killall -USR1 i3blocks
-
-#exec --no-startup-id volumeicon
-#exec --no-startup-id pulseaudio
-#exec --no-startup-id pa-applet
-
-################################################################################################
-
-# Screen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5
-
-# Start Applications
-#bindsym $mod+Ctrl+b exec $myTerm -e 'bmenu'
-#bindsym $mod+F5 exec $myTerm -e 'mocp'
-#bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
-#bindsym Print exec --no-startup-id i3-scrot
-#bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
-#bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
-bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
-
+set $myBrowser opera
+set $myFileMan kitty -e sh ~/.config/vifm/scripts/vifmrun
+set $myLauncher "rofi -show combi -combi-modi run,drun"
+set $myMusic kitty -e cmus
+# ---------------------------
+new_window none
+new_float normal
+hide_edge_borders none
+#font xft:Fira Code 11
+font pango:Fira Code 11
+floating_modifier $mod
 focus_follows_mouse no
+workspace_auto_back_and_forth yes
 
+smart_borders on
+smart_gaps on
+gaps inner 10
+gaps outer -4
+# Startup Applications ------
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id nitrogen --restore; sleep 1; compton -b --respect-prop-shadow --config $HOME/.config/compton/compton.conf
+exec --no-startup-id nm-applet
+exec --no-startup-id "redshift-gtk -t 4500:3800"
+
+# More configurations at the bottom 
+
+### KeyMappings =================================
+# Normal KeyMappings
+bindsym Mod1+Tab exec --no-startup-id rofi -show window
+
+## Primary Key Bindings ( $mod + key )
+# Start Apps
+bindsym $mod+Return exec $myTerm
+bindsym $mod+space exec --no-startup-id $myLauncher
+bindsym $mod+f exec $myFileMan
+bindsym $mod+m exec $myMusic
+bindsym $mod+w exec $myBrowser
 # change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-
-# alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
-# workspace back and forth (with/without active container)
-workspace_auto_back_and_forth yes
-bindsym $mod+b workspace back_and_forth
-bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
-
-# split orientation
-bindsym $mod+s split h;exec notify-send 'tile horizontally'
-bindsym $mod+v split v;exec notify-send 'tile vertically'
-bindsym $mod+q split toggle
-
-# toggle fullscreen mode for the focused container
-bindsym $mod+Shift+f fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+Shift+s layout stacking
-bindsym $mod+Shift+w layout tabbed
-bindsym $mod+Shift+e layout toggle split
-
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
-
-# toggle sticky
-# bindsym $mod+Shift+s sticky toggle
-#bindsym $mod+Shift+d exec ~/.i3/i3-display-swap.sh
-
-# focus the parent container
-bindsym $mod+a focus parent
-
-# move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
-
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+minus scratchpad show
-
-#navigate workspaces next / previous
-bindsym $mod+Ctrl+Right workspace next
-bindsym $mod+Ctrl+Left workspace prev
-
-# Workspace names
-# to display names or symbols instead of plain workspace numbers you can use
-# something like: set $ws1 1:mail
-#                 set $ws2 2:
-
-# switch to workspace
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
@@ -189,8 +58,20 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
+bindsym $mod+minus scratchpad show
+bindsym $mod+l workspace back_and_forth
 
-# move focused container to workspace
+## Secondary Key Bindings ( $mod + Shift + key )
+#
+bindsym $mod+Shift+f fullscreen toggle
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+x --release exec --no-startup-id xkill
+# move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
 bindsym $mod+Shift+3 move container to workspace 3
@@ -201,59 +82,70 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
+# move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+Shift+l move container to workspace back_and_forth; workspace back_and_forth
 
-# Move to workspace with focused container
-#bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
-#bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
-#bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
-#bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
-#bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
-#bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
-#bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
-#bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+## Tertiary Key Bindings ( $mod + Mod1 + key )
+# Menu Modes
+bindsym $mod+Mod1+r mode "resize"
+bindsym $mod+Mod1+b mode "$borders"
+bindsym $mod+Mod1+g mode "$mode_gaps"
+# Reload config file
+bindsym $mod+Mod1+i reload
 
-# Open applications on specific workspaces
-# assign [class="Thunderbird"] $ws1
-# assign [class="Firefox"] $ws2
-# assign [class="Pcmanfm"] $ws3
+#navigate workspaces next / previous
+bindsym $mod+Mod1+Right workspace next
+bindsym $mod+Mod1+Left workspace prev
+bindsym $mod+Mod1+1 move container to workspace 1; workspace 1
+bindsym $mod+Mod1+2 move container to workspace 2; workspace 2
+bindsym $mod+Mod1+3 move container to workspace 3; workspace 3
+bindsym $mod+Mod1+4 move container to workspace 4; workspace 4
+bindsym $mod+Mod1+5 move container to workspace 5; workspace 5
+bindsym $mod+Mod1+6 move container to workspace 6; workspace 6
+bindsym $mod+Mod1+7 move container to workspace 7; workspace 7
+bindsym $mod+Mod1+8 move container to workspace 8; workspace 8
+bindsym $mod+Mod1+9 move container to workspace 9; workspace 9
+bindsym $mod+Mod1+0 move container to workspace 10; workspace 10
+# change focus between tiling / floating windows
+bindsym $mod+Mod1+space focus mode_toggle
 
-# Open specific applications in floating mode
-for_window [title="alsamixer"] floating enable border pixel 1
-for_window [class="Clipgrab"] floating enable
-for_window [title="File Transfer*"] floating enable
-for_window [class="qalculator-gtk"] floating enable border pixel 1
-for_window [class="GParted"] floating enable border normal
-for_window [class="Lightdm-gtk-greeter-settings"] floating enable
-for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [title="MuseScore: Play Panel"] floating enable
-for_window [class="Nitrogen"] floating enable sticky enable border normal
-for_window [class="Oblogout"] fullscreen enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="qt5ct"] floating enable sticky enable border normal
-for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
-for_window [class="Simple-scan"] floating enable border normal
-for_window [class="(?i)System-config-printer.py"] floating enable border normal
-for_window [class="Thus"] floating enable border normal
-for_window [class="Timeset-gui"] floating enable border normal
-for_window [class="(?i)virtualbox"] floating enable border normal
-for_window [class="(?i)virtualbox"] fullscreen enable 
-for_window [class="Yad" title="yad-calendar"] floating enable
+## System Control Key Bindings ( $mod + Ctrl + key )
+# Menu Modes
+bindsym $mod+Ctrl+x mode "$mode_system"
+#
+bindsym $mod+Ctrl+q layout toggle split
+bindsym $mod+Ctrl+w layout tabbed
+bindsym $mod+Ctrl+e layout stacking
+# change spliting
+bindsym $mod+Ctrl+s split toggle
+bindsym $mod+Ctrl+h split v
+bindsym $mod+Ctrl+v split h
+#
+bindsym $mod+Ctrl+space floating toggle
+bindsym $mod+Ctrl+r restart
 
-# switch to workspace with urgent window automatically
-for_window [urgent=latest] focus
+## Special Key Bindings ( Multimedia Keys )
+bindsym Print exec --no-startup-id deepin-screenshot
 
-# reload the configuration file
-bindsym $mod+Ctrl+r reload
+# Volume
+bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
+# granular volume control
+bindsym $mod+XF86AudioRaiseVolume exec amixer -D pulse sset Master 1%+ && pkill -RTMIN+1 i3blocks
+bindsym $mod+XF86AudioLowerVolume exec amixer -D pulse sset Master 1%- && pkill -RTMIN+1 i3blocks
+# mute
+bindsym XF86AudioMute exec amixer sset Master toggle && killall -USR1 i3blocks
 
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+# Screen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
-# exit i3 (logs you out of your X session)
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# Set shut down, restart and locking features
-bindsym $mod+Shift+z mode "$mode_system"
-set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+
+### Modes =======================================
+# Power Menu
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (S)hutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id i3exit lock, mode "default"
     bindsym s exec --no-startup-id i3exit suspend, mode "default"
@@ -267,46 +159,79 @@ mode "$mode_system" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
-# Resize window (you can also use the mouse for that)
-bindsym $mod+r mode "resize"
+# Resize Menu
 mode "resize" {
-        # Originally set to jkl;.
-        # These bindings trigger as soon as you enter the resize mode
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 4 px or 4 ppt
-        bindsym j resize grow height 4 px or 4 ppt
-        bindsym k resize shrink height 4 px or 4 ppt
-        bindsym l resize grow width 4 px or 4 ppt
+    # Originally set to jkl;.
+    # These bindings trigger as soon as you enter the resize mode
+    # Pressing left will shrink the window’s width.
+    # Pressing right will grow the window’s width.
+    # Pressing up will shrink the window’s height.
+    # Pressing down will grow the window’s height.
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+    # same bindings, but for the arrow keys
+    bindsym Left resize shrink width 4 px or 4 ppt
+    bindsym Down resize grow height 4 px or 4 ppt
+    bindsym Up resize shrink height 4 px or 4 ppt
+    bindsym Right resize grow width 4 px or 4 ppt
 
-        # exit resize mode: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    # exit resize mode: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
+# Config Gap Menu
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
 
-# Lock screen
-#bindsym $mod+9 exec --no-startup-id blurlock
+mode "$mode_gaps" {
+    bindsym o      mode "$mode_gaps_outer"
+    bindsym i      mode "$mode_gaps_inner"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+    bindsym plus  gaps inner current plus 5
+    bindsym minus gaps inner current minus 5
+    bindsym 0     gaps inner current set 0
 
-# Autostart applications
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id nitrogen --restore; sleep 1; compton -b --respect-prop-shadow --config $HOME/.config/compton/compton.conf
-#exec --no-startup-id numlockx off
-exec --no-startup-id nm-applet
-#exec --no-startup-id xfce4-power-manager
-# exec --no-startup-id xautolock -time 10 -locker blurlock
-#exec_always --no-startup-id ff-theme-util
-#exec_always --no-startup-id fix_xcursor
+    bindsym Shift+plus  gaps inner all plus 5
+    bindsym Shift+minus gaps inner all minus 5
+    bindsym Shift+0     gaps inner all set 0
 
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+    bindsym plus  gaps outer current plus 5
+    bindsym minus gaps outer current minus 5
+    bindsym 0     gaps outer current set 0
+
+    bindsym Shift+plus  gaps outer all plus 5
+    bindsym Shift+minus gaps outer all minus 5
+    bindsym Shift+0     gaps outer all set 0
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+# Config Borders Menu 
+set $borders (n)one (t)itle (p)ixel 1 
+mode "$borders" {
+    bindsym n border none
+    bindsym p border pixel 1
+    bindsym t border normal
+}
+### Config Floating Mode
+for_window [title="alsamixer"] floating enable border pixel 1
+for_window [class="qalculator-gtk"] floating enable border pixel 1
+for_window [class="GParted"] floating enable border normal
+for_window [class="Simple-scan"] floating enable border normal
+for_window [class="Yad" title="yad-calendar"] floating enable
+
+### Theming Config
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
 # https://i3wm.org/docs/userguide.html#xresources
@@ -348,63 +273,4 @@ set_from_resource $term_color15    color15
 
   client.background       #2B2C2B
 
-#############################
-### settings for i3-gaps: ###
-#############################
 
-# Set inner/outer gaps
-gaps inner 10
-gaps outer -4
-
-# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
-# gaps inner|outer current|all set|plus|minus <px>
-# gaps inner all set 10
-# gaps outer all plus 5
-
-# Smart gaps (gaps used if only more than one container on the workspace)
-smart_gaps on
-
-# Smart borders (draw borders around container only if it is not the only container on this workspace) 
-# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
-smart_borders on
-
-# Press $mod+Shift+g to enter the gap mode. 
-# Choose o or i for modifying outer/inner gaps.
-# Press one of + / - (in-/decrement for current workspace) 
-# or 0 (remove gaps for current workspace). If you also press Shift 
-# with these keys, the change will be global for all workspaces.
-set $mode_gaps Gaps: (o) outer, (i) inner
-set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
-set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
-bindsym $mod+Shift+g mode "$mode_gaps"
-
-mode "$mode_gaps" {
-        bindsym o      mode "$mode_gaps_outer"
-        bindsym i      mode "$mode_gaps_inner"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_inner" {
-        bindsym plus  gaps inner current plus 5
-        bindsym minus gaps inner current minus 5
-        bindsym 0     gaps inner current set 0
-
-        bindsym Shift+plus  gaps inner all plus 5
-        bindsym Shift+minus gaps inner all minus 5
-        bindsym Shift+0     gaps inner all set 0
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_outer" {
-        bindsym plus  gaps outer current plus 5
-        bindsym minus gaps outer current minus 5
-        bindsym 0     gaps outer current set 0
-
-        bindsym Shift+plus  gaps outer all plus 5
-        bindsym Shift+minus gaps outer all minus 5
-        bindsym Shift+0     gaps outer all set 0
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}

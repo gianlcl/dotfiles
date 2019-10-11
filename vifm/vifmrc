@@ -136,10 +136,10 @@ mark h ~/
 command! df df -h %m 2> /dev/null
 command! diff vim -d %f %F
 command! zip zip -r %f.zip %f
-command! run !! ./%f
+command! run !!./%f %a
 command! make !!make %a
 command! mkcd :mkdir %a | cd %a
-command! vgrep vim "+grep %a"
+command! vgrep nvim "+Ag %a"
 command! reload :write | restart
 
 " ------------------------------------------------------------------------------
@@ -359,7 +359,7 @@ filextype *.pro qtcreator %f &
 
 " Directories
 fileviewer */ tree -C -L 2
-fileviewer ../ tree -C -L 2
+fileviewer ../ tree -C -L 1
 filextype */
         \ {View in thunar}
         \ Thunar %f &,
@@ -489,7 +489,7 @@ nnoremap ,t :!xterm &<cr>
 " Open editor to edit vifmrc and apply settings after returning to vifm
 nnoremap ,c :write | edit $MYVIFMRC | restart<cr>
 " Open nvim to edit vifmrc
-nnoremap ,C :!nvim --remote-tab-silent $MYVIFMRC &<cr>
+"nnoremap ,C :!nvim --remote-tab-silent $MYVIFMRC &<cr>
 
 " Toggle wrap setting on ,w key
 nnoremap ,w :set wrap!<cr>
@@ -501,6 +501,8 @@ nnoremap <f5> :copy<cr>
 nnoremap <f6> :move<cr>
 nnoremap <f7> :mkdir<space>
 nnoremap <f8> :delete<cr>
+
+nnoremap cd :cd<space>
 
 " ------------------------------------------------------------------------------
 
