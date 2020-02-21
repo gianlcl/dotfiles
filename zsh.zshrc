@@ -10,6 +10,9 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
 ZSH_THEME="spaceship" # https://denysdovhan.com/spaceship-prompt/
+SPACESHIP_PROMPT_ORDER=(
+    dir host git exec_time line_sep vi_mode jobs exit_code char
+)
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -22,10 +25,10 @@ ZSH_THEME="spaceship" # https://denysdovhan.com/spaceship-prompt/
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to automatically update without prompting.
 # DISABLE_UPDATE_PROMPT="true"
@@ -46,7 +49,7 @@ ZSH_THEME="spaceship" # https://denysdovhan.com/spaceship-prompt/
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -59,7 +62,7 @@ ZSH_THEME="spaceship" # https://denysdovhan.com/spaceship-prompt/
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="dd.mm.yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -70,10 +73,11 @@ ZSH_THEME="spaceship" # https://denysdovhan.com/spaceship-prompt/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+    ansible     kubectl           helm
     git         sudo 	            dirhistory
-    docker 	    docker-compose      fzf
-    dirhistory  colored-man-pages   zsh-completions 
-    zsh-bd      zsh-autopair        zsh-autosuggestions 
+    docker 	    docker-compose    fzf
+    dirhistory  colored-man-pages zsh-completions 
+    zsh-bd      zsh-autopair      zsh-autosuggestions 
     history-substring-search 	    fast-syntax-highlighting
     )
 
@@ -106,13 +110,16 @@ source $ZSH/oh-my-zsh.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPS="--extended"
-export EDITOR=nvim
-export GIT_EDITOR=nvim
+export EDITOR="nvim"
+export GIT_EDITOR="nvim"
 export MANPAGER="nvim -c 'set nonu' -c MANPAGER -"
+export KUBE_EDITOR="nvim"
+export PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin
 
 
 # Custom Aliases
 alias cfzsh="nvim ~/.zshrc && source ~/.zshrc"
 alias cftmux="nvim ~/.tmux.conf"
 alias cfnvim="nvim ~/.config/nvim/init.vim"
+alias ncdu='ncdu -e --color=dark'
 alias vifm='~/.config/vifm/scripts/vifmrun'
